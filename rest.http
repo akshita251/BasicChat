@@ -1,0 +1,44 @@
+###Sign-in Route
+POST https://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+  "email": "akshita12@social.com",
+  "password": "123456"
+}
+
+###Sign-up Route
+POST https://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+  "password": "123456",
+  "email": "akshita12@social.com",
+  "username": "smartass"
+}
+
+###Refresh-token Route
+POST https://localhost:3000/auth/refreshToken
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyODQ5NzkzNzQ2ODEyMjc3ODEiLCJpYXQiOjE2MDgwNjUxMTMsImV4cCI6MTYzOTYyMjcxM30.D274_5QC9vX47E2XSDUK_PJkzB0Z9bPAjVAlVX2cOHo"
+}
+
+###Sign-out Route
+POST https://localhost:3000/auth/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyODQ5NzkzNzQ2ODEyMjc3ODEiLCJpYXQiOjE2MDgxOTkzNzAsImV4cCI6MTYzOTc1Njk3MH0.T3zXhHlwJGlXPjLSO5KgjU6s32UbJWzBoCKAHIlhp94"
+}
+
+###Sign-out Route
+POST https://localhost:3000/test
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZmE5NzU0MWZjNjRkYzE2YTQyNzJmOTgiLCJpYXQiOjE2MDU3MTYwMTIsImV4cCI6MTYzNzI3MzYxMn0.8XlY0STsqGs1vAS61_QAojWzOSxWm09mxOWgvv-L2rM
+
+
+###Sign-out Route
+GET https://localhost:3000/test
+Content-Type: application/json

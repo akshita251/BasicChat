@@ -16,7 +16,10 @@ $(function() {
     const $loginPage = $('.login.page');        // The login page
     const $chatPage = $('.chat.page');          // The chatroom page
   
-    const socket = io();
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyOTUyNTAxNDQ5MTIyMTI0ODEiLCJpYXQiOjE2MjI3OTE0MDIsImV4cCI6MTYyMjg1MTQwMn0.J9C8mjgjoA1eLNnV_vJQu_N52n_9rFK_Zr03YvzSfe4'
+    const socket = io.connect('https://localhost:3000', {
+      query: {token}
+    });
   
     // Prompt for setting a username
     let username;

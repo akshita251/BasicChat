@@ -3,22 +3,56 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const server = require('http').createServer(app);
+const fs = require('fs')
+const server = require('https').createServer({
+  key: fs.readFileSync('./certificates/server.key'),
+  cert: fs.readFileSync('./certificates/server.cert')
+},app)
 const io = require('socket.io')(server);
 const port = process.env.PORT || 3000;
+const AuthRoute = require('./routes/Auth.route')
+const jwt = require('jsonwebtoken')
 
 server.listen(port, () => {
   console.log('Server listening at port %d', port);
 });
 
+//Routes
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use('/auth', AuthRoute)
+
 // Routing
 app.use(express.static(path.join(__dirname, 'public')));
+//error handling
+app.use((err, req, res, next) => {
+  res.status(err.status || 500)
+  res.send({
+    error: {
+      status: err.status || 500,
+      message: err.message,
+    },
+  })
+})
+
 
 // Chatroom
-
 let numUsers = 0;
 
-io.on('connection', (socket) => {
+io.use(function(socket, next){
+  if (socket.handshake.query && socket.handshake.query.token){
+    // console.log(socket.handshake.query.token)
+    jwt.verify(socket.handshake.query.token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
+      console.log(decoded)
+      if (err) return next(new Error('Authentication error'));
+      socket.decoded = decoded;
+      next();
+    });
+  }
+  else {
+    next(new Error('Authentication error'));
+  }    
+}).on('connection', (socket) => {
   let addedUser = false;
 
   // when the client emits 'new message', this listens and executes
